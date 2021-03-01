@@ -31,9 +31,10 @@ public class Client {
     String serverAddress;
     Scanner in;
     PrintWriter out;
-    JFrame frame = new JFrame("Chatter");
-    JTextField textField = new JTextField(50);
-    JTextArea messageArea = new JTextArea(16, 50);
+
+    LoginGUI gui = new LoginGUI();
+    JFrame frame = new JFrame("Login");
+
 
     /**
      * Constructs the client by laying out the GUI and registering a listener with the
@@ -45,19 +46,16 @@ public class Client {
     public Client(String serverAddress) {
         this.serverAddress = serverAddress;
 
-        textField.setEditable(false);
-        messageArea.setEditable(false);
-        frame.getContentPane().add(textField, BorderLayout.SOUTH);
-        frame.getContentPane().add(new JScrollPane(messageArea), BorderLayout.CENTER);
+        frame.setContentPane(gui.getPanel());
         frame.pack();
 
-        // Send on enter then clear to prepare for next message
-        textField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                out.println(textField.getText());
-                textField.setText("");
-            }
-        });
+//        // Send on enter then clear to prepare for next message
+//        textField.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                out.println(textField.getText());
+//                textField.setText("");
+//            }
+//        });
     }
 
     private String getName() {
