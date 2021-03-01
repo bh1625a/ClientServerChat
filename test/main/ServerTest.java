@@ -7,6 +7,7 @@ class ServerTest {
 
     @Test
     void getIP() {
+        assertEquals("192.168.0.1", "0");
     }
 
     @Test
