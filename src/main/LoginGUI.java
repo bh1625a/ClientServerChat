@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginGUI {
     private JPanel loginPanel;
@@ -28,6 +29,12 @@ public class LoginGUI {
                 client.setClientIP(clientIPInput.getText());
                 client.setServerIPAddress(serverIPInput.getText());
                 client.setServerPort(serverPortInput.getText());
+
+                try {
+                    client.tryConnect();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
 
 
             }

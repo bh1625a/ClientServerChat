@@ -60,17 +60,17 @@ public class Client {
             in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);
 
-            while (in.hasNextLine()) {
-                String line = in.nextLine();
-                if (line.startsWith("SUBMITNAME")) {
-                    //out.println(getName());
-                } else if (line.startsWith("NAMEACCEPTED")) {
-                    this.frame.setTitle("Chatter - " + line.substring(13));
-//                    textField.setEditable(true);
-//                } else if (line.startsWith("MESSAGE")) {
-//                    messageArea.append(line.substring(8) + "\n");
-                }
-            }
+//            while (in.hasNextLine()) {
+//                String line = in.nextLine();
+//                if (line.startsWith("SUBMITNAME")) {
+//                    //out.println(getName());
+//                } else if (line.startsWith("NAMEACCEPTED")) {
+//                    this.frame.setTitle("Chatter - " + line.substring(13));
+////                    textField.setEditable(true);
+////                } else if (line.startsWith("MESSAGE")) {
+////                    messageArea.append(line.substring(8) + "\n");
+//                }
+//            }
         } finally {
             frame.setVisible(false);
             frame.dispose();
