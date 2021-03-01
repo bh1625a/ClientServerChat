@@ -1,8 +1,11 @@
 package main;
+import java.net.ServerSocket;
+import java.util.Collections;
 
 public class Server {
     private String IP;
     private int port;
+
 
     public Server(String IP, int port){
         this.IP = IP;
@@ -24,6 +27,5 @@ public class Server {
     public void setPort(int port) {
         this.port = port;
     }
-
 
 }
