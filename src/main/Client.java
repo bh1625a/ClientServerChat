@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -33,7 +34,8 @@ public class Client {
     Scanner in;
     PrintWriter out;
     LoginGUI gui;
-    JFrame frame = new JFrame("Login");
+    JFrame frame = new JFrame();
+    private boolean isConnected;
 
 
     /**
@@ -44,22 +46,15 @@ public class Client {
      * the server.
      */
     public Client() {
-        gui = new LoginGUI(this);
-        frame.setContentPane(gui.getPanel());
-        frame.pack();
-
-    }
-
-    private String getName() {
-        return JOptionPane.showInputDialog(
-                frame,
-                "Choose a screen name:",
-                "Screen name selection",
-                JOptionPane.PLAIN_MESSAGE
-        );
+        this.isConnected = false;
     }
 
     private void run() throws IOException {
+        openLoginWindow();
+
+    }
+
+    public void tryConnect() throws IOException{
         try {
             Socket socket = new Socket(this.getServerIPAddress(), this.serverPort);
             in = new Scanner(socket.getInputStream());
@@ -68,7 +63,7 @@ public class Client {
             while (in.hasNextLine()) {
                 String line = in.nextLine();
                 if (line.startsWith("SUBMITNAME")) {
-                    out.println(getName());
+                    //out.println(getName());
                 } else if (line.startsWith("NAMEACCEPTED")) {
                     this.frame.setTitle("Chatter - " + line.substring(13));
 //                    textField.setEditable(true);
@@ -80,6 +75,13 @@ public class Client {
             frame.setVisible(false);
             frame.dispose();
         }
+    }
+
+    public void openLoginWindow(){
+        gui = new LoginGUI(this);
+        frame.setTitle("Login");
+        frame.setContentPane(gui.getPanel());
+        frame.pack();
     }
 
     public void setId(String id){
