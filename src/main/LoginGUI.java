@@ -12,18 +12,22 @@ public class LoginGUI {
     private JTextField serverIPInput;
     private JTextField clientIPInput;
     private JButton connectButton;
+    private JPanel OuterPanel;
+    private Client client;
 
-    public LoginGUI() {
+    public LoginGUI(){}
+
+    public LoginGUI(Client client) {
+        this.client = client;
 
         connectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = idInput.getText();
-                String clientPort = clientPortInput.getText();
-                String clientIP = clientIPInput.getText();
-                String serverPort = serverPortInput.getText();
-                String serverIP = serverIPInput.getText();
-
+                client.setId(idInput.getText());
+                client.setClientPort(clientPortInput.getText());
+                client.setClientIP(clientIPInput.getText());
+                client.setServerIPAddress(serverIPInput.getText());
+                client.setServerPort(serverPortInput.getText());
 
 
             }
@@ -36,7 +40,7 @@ public class LoginGUI {
 
 //    public static void main(String[] args) {
 //        JFrame frame = new JFrame("App");
-//        frame.setContentPane(new LoginGUI().loginPanel);
+//        frame.setContentPane(new LoginGUI().getPanel());
 //        frame.pack();
 //        frame.setVisible(true);
 //    }

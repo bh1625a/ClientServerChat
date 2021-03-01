@@ -29,6 +29,7 @@ public class Server {
     private static Set<PrintWriter> writers = new HashSet<>();
 
 
+
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running...");
         ExecutorService pool = Executors.newFixedThreadPool(500);

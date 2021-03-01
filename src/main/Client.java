@@ -7,12 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
 
 /**
  * A simple Swing-based client for the chat server. Graphically it is a frame with a text
@@ -28,11 +25,14 @@ import javax.swing.JTextField;
  */
 public class Client {
 
-    String serverAddress;
+    private String id;
+    int clientPort;
+    String clientIP;
+    int serverPort;
+    String serverIPAddress;
     Scanner in;
     PrintWriter out;
-
-    LoginGUI gui = new LoginGUI();
+    LoginGUI gui;
     JFrame frame = new JFrame("Login");
 
 
@@ -43,19 +43,11 @@ public class Client {
      * only becomes editable AFTER the client receives the NAMEACCEPTED message from
      * the server.
      */
-    public Client(String serverAddress) {
-        this.serverAddress = serverAddress;
-
+    public Client() {
+        gui = new LoginGUI(this);
         frame.setContentPane(gui.getPanel());
         frame.pack();
 
-//        // Send on enter then clear to prepare for next message
-//        textField.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                out.println(textField.getText());
-//                textField.setText("");
-//            }
-//        });
     }
 
     private String getName() {
@@ -69,7 +61,7 @@ public class Client {
 
     private void run() throws IOException {
         try {
-            Socket socket = new Socket(serverAddress, 59001);
+            Socket socket = new Socket(this.getServerIPAddress(), this.serverPort);
             in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);
 
@@ -79,9 +71,9 @@ public class Client {
                     out.println(getName());
                 } else if (line.startsWith("NAMEACCEPTED")) {
                     this.frame.setTitle("Chatter - " + line.substring(13));
-                    textField.setEditable(true);
-                } else if (line.startsWith("MESSAGE")) {
-                    messageArea.append(line.substring(8) + "\n");
+//                    textField.setEditable(true);
+//                } else if (line.startsWith("MESSAGE")) {
+//                    messageArea.append(line.substring(8) + "\n");
                 }
             }
         } finally {
@@ -90,12 +82,52 @@ public class Client {
         }
     }
 
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public void setClientPort(String clientPort) {
+        this.clientPort = Integer.valueOf(clientPort);
+    }
+
+    public void setClientIP(String clientIP) {
+        this.clientIP = clientIP;
+    }
+
+    public void setServerIPAddress(String ipAddress){
+        this.serverIPAddress = ipAddress;
+    }
+
+    public void setServerPort(String portNumber){
+        this.serverPort = Integer.valueOf(portNumber);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getClientPort() {
+        return clientPort;
+    }
+
+    public String getClientIP() {
+        return clientIP;
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
+    public String getServerIPAddress() {
+        return serverIPAddress;
+    }
+
     public static void main(String[] args) throws Exception {
 //        if (args.length != 1) {
 //            System.err.println("Pass the server IP as the sole command line argument");
 //            return;
 //        }
-        Client client = new Client("localhost");
+        Client client = new Client();
         client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         client.frame.setVisible(true);
         client.run();
