@@ -9,6 +9,7 @@ public class ChatGUI {
     private JButton sendButton;
     private JTextArea displayMessages;
     private JList listOfUsers;
+    private JPanel mainPanel;
 
     public ChatGUI() {
         sendButton.addActionListener(new ActionListener() {
@@ -17,5 +18,16 @@ public class ChatGUI {
 
             }
         });
+    }
+
+    public static void main(String[] args) {
+        ChatGUI gui = new ChatGUI();
+        JFrame frame = new JFrame("Chat");
+        frame.setContentPane(gui.mainPanel);
+
+        frame.pack();
+        frame.setSize(500,500);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
