@@ -3,13 +3,13 @@
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="50" left="10" bottom="10" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="732" height="687"/>
+      <xy x="20" y="20" width="734" height="687"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <grid id="f60b1" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+        <margin top="0" left="5" bottom="5" right="5"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -20,10 +20,12 @@
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="30"/>
-                <preferred-size width="150" height="50"/>
+                <preferred-size width="150" height="30"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <foreground color="-4521815"/>
+            </properties>
           </component>
           <component id="8a72e" class="javax.swing.JButton" binding="sendButton" default-binding="true">
             <constraints>
@@ -61,13 +63,15 @@
           </component>
         </children>
       </grid>
-      <grid id="fc27d" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="fc27d" binding="listPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
-        <border type="none"/>
+        <properties>
+          <foreground color="-4521970"/>
+        </properties>
+        <border type="line"/>
         <children>
           <component id="f704a" class="javax.swing.JList" binding="listOfUsers">
             <constraints>
@@ -75,7 +79,10 @@
                 <preferred-size width="150" height="300"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <foreground color="-6943488"/>
+              <selectionForeground color="-10634496"/>
+            </properties>
           </component>
         </children>
       </grid>

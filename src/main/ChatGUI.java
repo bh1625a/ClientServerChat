@@ -1,6 +1,7 @@
 package main;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,7 @@ public class ChatGUI {
     private JTextArea displayMessages;
     private JList listOfUsers;
     private JPanel mainPanel;
+    private JPanel listPanel;
 
     public ChatGUI() {
         sendButton.addActionListener(new ActionListener() {
