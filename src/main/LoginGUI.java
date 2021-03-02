@@ -30,6 +30,7 @@ public class LoginGUI {
                 client.setServerIPAddress(serverIPInput.getText());
                 client.setServerPort(serverPortInput.getText());
 
+
                 try {
                     client.tryConnect();
                 } catch (IOException ioException) {

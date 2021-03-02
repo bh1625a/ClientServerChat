@@ -22,14 +22,18 @@ public class ChatGUI {
         });
     }
 
-    public static void main(String[] args) {
-        ChatGUI gui = new ChatGUI();
-        JFrame frame = new JFrame("Chat");
-        frame.setContentPane(gui.mainPanel);
-
-        frame.pack();
-        frame.setSize(500,500);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+    public JPanel getPanel(){
+        return mainPanel;
     }
+
+//    public static void main(String[] args) {
+//        ChatGUI gui = new ChatGUI();
+//        JFrame frame = new JFrame("Chat");
+//        frame.setContentPane(gui.mainPanel);
+//
+//        frame.pack();
+//        frame.setSize(500,500);
+//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        frame.setVisible(true);
+//    }
 }

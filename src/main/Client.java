@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -12,18 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
-/**
- * A simple Swing-based client for the chat server. Graphically it is a frame with a text
- * field for entering messages and a textarea to see the whole dialog.
- *
- * The client follows the following Chat Protocol. When the server sends "SUBMITNAME" the
- * client replies with the desired screen name. The server will keep sending "SUBMITNAME"
- * requests as long as the client submits screen names that are already in use. When the
- * server sends a line beginning with "NAMEACCEPTED" the client is now allowed to start
- * sending the server arbitrary strings to be broadcast to all chatters connected to the
- * server. When the server sends a line beginning with "MESSAGE" then all characters
- * following this string should be displayed in its message area.
- */
+
 public class Client {
 
     private String id;
@@ -33,55 +23,55 @@ public class Client {
     String serverIPAddress;
     Scanner in;
     PrintWriter out;
-    LoginGUI gui;
+    LoginGUI loginGui;
+    ChatGUI chatGUI;
     JFrame frame = new JFrame();
+    JFrame frame2 = new JFrame();
     private boolean isConnected;
 
 
-    /**
-     * Constructs the client by laying out the GUI and registering a listener with the
-     * textfield so that pressing Return in the listener sends the textfield contents
-     * to the server. Note however that the textfield is initially NOT editable, and
-     * only becomes editable AFTER the client receives the NAMEACCEPTED message from
-     * the server.
-     */
+
     public Client() {
         this.isConnected = false;
     }
 
     private void run() throws IOException {
-        openLoginWindow();
+        if (!isConnected) {
+            openLoginWindow();
+        } else {
+            openChatWindow();
+        }
 
     }
 
     public void tryConnect() throws IOException{
-        try {
-            Socket socket = new Socket(this.getServerIPAddress(), this.serverPort);
+            Socket socket = new Socket(this.getServerIPAddress(), this.getServerPort());
+
             in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);
 
-//            while (in.hasNextLine()) {
-//                String line = in.nextLine();
-//                if (line.startsWith("SUBMITNAME")) {
-//                    //out.println(getName());
-//                } else if (line.startsWith("NAMEACCEPTED")) {
-//                    this.frame.setTitle("Chatter - " + line.substring(13));
-////                    textField.setEditable(true);
-////                } else if (line.startsWith("MESSAGE")) {
-////                    messageArea.append(line.substring(8) + "\n");
-//                }
-//            }
-        } finally {
-            frame.setVisible(false);
-            frame.dispose();
-        }
+            while (in.hasNextLine()) {
+                String line = in.nextLine();
+                if (line.startsWith("SUBMITID")) {
+                    out.println(this.getId());
+                    isConnected = true;
+                    break;
+                }
+            }
     }
 
     public void openLoginWindow(){
-        gui = new LoginGUI(this);
+        loginGui = new LoginGUI(this);
         frame.setTitle("Login");
-        frame.setContentPane(gui.getPanel());
+        frame.setContentPane(loginGui.getPanel());
         frame.pack();
+    }
+
+    public void openChatWindow(){
+        chatGUI = new ChatGUI();
+        frame2.setTitle("Chat");
+        frame2.setContentPane(chatGUI.getPanel());
+        frame2.pack();
     }
 
     public void setId(String id){
@@ -132,6 +122,7 @@ public class Client {
         Client client = new Client();
         client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         client.frame.setVisible(true);
+        client.frame2.setVisible(true);
         client.run();
     }
 }
